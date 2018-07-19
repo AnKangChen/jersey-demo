@@ -1,0 +1,82 @@
+allprojects {
+    group 'com.llb.app'
+    version '1.2.0'
+
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'kotlin'
+
+    repositories {
+        maven{ url "http://nexus.jihui.in/content/groups/public/"}
+    }
+    dependencies {
+        testCompile "org.testng:testng:${testng_version}"
+        //kotlin
+        compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+
+        compile ('cn.haolie:haolie-common-lib:1.6.0') { changing = true }
+
+        //log
+        compile 'ch.qos.logback:logback-classic:1.1.7'
+        compile "org.slf4j:slf4j-api:${slf4j_version}"
+        compile "org.slf4j:jul-to-slf4j:${slf4j_version}"
+        compile "org.slf4j:jcl-over-slf4j:${slf4j_version}"
+        compile "org.slf4j:log4j-over-slf4j:${slf4j_version}"
+
+        //guice
+        compile "com.google.inject:guice:${guice_version}"
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.2.41'
+    ext.grpc_version = '1.3.0'
+    ext.slf4j_version = '1.7.25'
+    ext.guice_version = '4.1.0'
+    ext.testng_version = '6.9.6'
+    repositories {
+        maven { url "http://nexus.jihui.in/content/groups/public/" }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.1'
+    }
+}
+
+/*
+plugins {
+    id 'java'
+}
+
+group 'com.llb.app'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'application'
+
+//mainClassName = 'com.llb.service.jersey.JerseyServer'
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "http://nexus.jihui.in/content/groups/public/" }
+}
+
+dependencies {
+
+}
+
+compileKotlin {
+    kotlinOptions {
+        languageVersion = "1.2"
+    }
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}*/

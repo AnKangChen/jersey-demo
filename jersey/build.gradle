@@ -1,0 +1,45 @@
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+apply plugin: 'com.google.protobuf'
+//mainClassName = "cn.jianlibao.search.SearchServerKt"
+
+protobuf{
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.2.0'
+    }
+    plugins {
+        javalite {
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            javalite { }
+        }
+    }
+}
+dependencies {
+
+    compile project(':jersey')
+
+    compile 'com.google.inject.extensions:guice-servlet:4.0'
+    compile group: 'io.swagger', name: 'swagger-jersey2-jaxrs', version: '1.5.15'
+
+    compile 'org.glassfish.jersey.containers:jersey-container-jetty-http:2.25.1'
+    compile 'org.glassfish.jersey.containers:jersey-container-jetty-servlet:2.25.1'
+
+
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1'
+    compile 'com.squarespace.jersey2-guice:jersey2-guice-impl:1.0.6'
+
+    compile "io.peggy.tracing:tracing-core:1.1.19"
+
+    // https://mvnrepository.com/artifact/io.grpc/grpc-all
+    compile group: 'io.grpc', name: 'grpc-all', version: '1.0.1'
+
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.2.0'
+
+
+}
